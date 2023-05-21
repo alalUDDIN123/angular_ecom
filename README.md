@@ -17,7 +17,7 @@ The application was built using the following tech stack:
 - Solely created by me
 
 ### **`Deployed link`** 🚀 
-You can be access this live application through the following link : [https://angualecom.com](https://e-comm-angular.netlify.app/)
+You can access this application through the following live link : [https://angualecom.com](https://e-comm-angular.netlify.app/)
 
 ### **`How to Run Locally`** ❔
 
