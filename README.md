@@ -55,6 +55,8 @@ The e-commerce application can be accessed through the following link: [https://
 
 21. 👉 **Shared Service**: Created a shared service with a visually appealing and user-friendly design to facilitate data sharing between components.
 
+22. 👉 **404 Page**: The visually appealing 404 page provides clear messages, suggestions, and navigation options for a user-friendly experience when encountering unavailable pages or URLs.
+
 ### `Challenges  and Learning Outcomes ` 📝
 
 Throughout the development of this e-commerce application, several challenges were encountered, leading to valuable learning outcomes. Some notable challenges and learnings include:

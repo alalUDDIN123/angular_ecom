@@ -16,6 +16,7 @@ import { SearchComponent } from './search/search.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { LoginComponent } from './login/login.component';
 import { SharedService } from './services/shared.service';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 
@@ -31,7 +32,8 @@ import { SharedService } from './services/shared.service';
     ProductCardComponent,
     SearchComponent,
     ProductDetailsComponent,
-    LoginComponent
+    LoginComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

@@ -9,6 +9,7 @@ import { SellerUpdateProductComponent } from './seller-update-product/seller-upd
 import { SearchComponent } from './search/search.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { LoginComponent } from './login/login.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
   {
     path:'login',
     component:LoginComponent
+  },
+  {
+    path:"**",
+    component:PageNotFoundComponent
   }
 ];
 
