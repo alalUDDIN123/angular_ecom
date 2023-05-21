@@ -1,10 +1,39 @@
 ## E-commerce Application With Angular 🛍️
 
 ### **`Project Overview`** 📝
-The project was solely developed by me within a timeframe of 4 days. The application incorporates various features such as user authentication, product management, shopping cart functionality, and more...
+This is an e-commerce application that incorporates various features such as user authentication, product management, shopping cart functionality, and more...
+### **`Tech Stack Used`** 💻
 
-### **`Deployment`** 🚀 
-The e-commerce application can be accessed through the following link: [https://angualecom.com](https://angualecom.com)
+The application was built using the following tech stack:
+
+- **Angular**: Angular was used for the frontend development, providing a powerful framework for building robust and scalable web applications.
+- **CSS**: CSS was used for styling and designing the user interfaces, ensuring visually appealing and responsive layouts.
+- **JSON-Server**: JSON-Server was utilized for backend simulation, enabling the application to interact with a mock API and handle data management.
+
+### **`⏱️ Duration`**
+- Developed in 4 days
+
+### **👤 Made by**
+- Solely created by me
+
+### **`Deployed link`** 🚀 
+You can be access this live application through the following link : [https://angualecom.com](https://e-comm-angular.netlify.app/)
+
+### **`How to Run Locally`** ❔
+
+To run this application locally, follow these steps:
+
+1. Clone or download the code repository.
+2. Open the folder in your preferred terminal or code editor, such as VS Code.
+3. Install the required npm packages by running the command `npm install`.
+4. Start the project by running the command `ng serve`.
+   - Once the server is up and running, you can access the application locally at this URL: http://localhost:4200/.
+   - Open the provided URL in any web browser to view and interact with the application.
+
+By following these steps, you can easily set up and run the e-commerce application locally on your machine.
+
+---
+---
 
 ### **`Project Development Steps`** 🛠️
 1. 👉 **Project Setup**: 
@@ -57,6 +86,8 @@ The e-commerce application can be accessed through the following link: [https://
 
 22. 👉 **404 Page**: The visually appealing 404 page provides clear messages, suggestions, and navigation options for a user-friendly experience when encountering unavailable pages or URLs.
 
+---
+---
 ### `Challenges  and Learning Outcomes ` 📝
 
 Throughout the development of this e-commerce application, several challenges were encountered, leading to valuable learning outcomes. Some notable challenges and learnings include:
@@ -69,8 +100,6 @@ Throughout the development of this e-commerce application, several challenges we
 📊 **Data Management** : Managing complex data relationships and ensuring data consistency throughout the application demanded thoughtful design and meticulous handling.
 
 🔒 **Authentication and Authorization** : Implementing secure user authentication and authorization mechanisms to protect sensitive user information necessitated thorough understanding and implementation of industry best practices.
-
-⚡ **Performance Optimization** : Optimizing performance and ensuring fast loading times, especially when dealing with large datasets, required careful optimization techniques and performance testing.
 
 💻 **Responsive Design** : Designing and implementing responsive and visually appealing user interfaces that work seamlessly across different devices and screen sizes demanded attention to detail and thorough testing.
 
@@ -92,5 +121,5 @@ By overcoming these challenges and learning from them, I was able to successfull
 
 If you have any further inquiries or need additional information, please feel free to contact me via email or phone:
 
-- ✉️ Email: alal@gmail.com
+- ✉️ Email: alalu75666@gmail.com
 - ☎️ Phone: +91 6002565574
