@@ -34,6 +34,15 @@ By following these steps, you can easily set up and run the e-commerce applicati
 
 ---
 ---
+## **`Features implemented`**
+  - User registration and  authentication
+  - Separate pages for admin and regular users
+  - Protected routes for admin access
+  - Admin privileges to add, delete, and edit products
+  - Product retrieval, shopping cart functionality, and cart item removal
+  - Product search capability
+
+---
 
 ### **`Project Development Steps`** 🛠️
 1. 👉 **Project Setup**: 
