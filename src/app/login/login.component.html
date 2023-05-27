@@ -13,7 +13,7 @@
                 minlength="5">
             <!-- <p class="validMessage" [hidden]="loginForm.controls['password'].valid">Note: Min length should 5 </p> -->
             <p class="login-failed" >{{loginFailed}}</p>
-            <button type="submit" [disabled]="loginForm.invalid">Login</button>
+            <button type="submit" [disabled]="loginForm.invalid">{{isLoading?"Fetching...":"Login"}}</button>
             <a class="auth-toggle-link" (click)="redirectToSignup()">Haven't yet sign up? <span>Click for sign up</span></a>
         </form>
     </div>

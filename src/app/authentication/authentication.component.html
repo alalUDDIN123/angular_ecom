@@ -16,7 +16,7 @@
                 minlength="5">
             <!-- <p class="validMessage" [hidden]="registerForm.controls['password'].valid">Note: Min length should 5 </p> -->
 
-            <button type="submit" [disabled]="registerForm.invalid">Sign up</button>
+            <button type="submit" [disabled]="registerForm.invalid">{{isLoading?"Loading...":"Sign up"}}</button>
             <a class="auth-toggle-link" (click)="openLogin()">Already have account? <span>Click for login</span></a>
         </form>
     </div>
@@ -37,8 +37,8 @@
             <input type="password" name="password" placeholder="Min length 5" autocomplete="off" ngModel required
                 minlength="5">
             <!-- <p class="validMessage" [hidden]="loginForm.controls['password'].valid">Note: Min length should 5 </p> -->
-            <p class="login-failed" >{{loginFailed}}</p>
-            <button type="submit" [disabled]="loginForm.invalid">Login</button>
+            <p class="login-failed">{{loginFailed}}</p>
+            <button type="submit" [disabled]="loginForm.invalid"> {{isLoading?"Fetching...":"Login"}} </button>
             <a class="auth-toggle-link" (click)="openSignUp()">Haven't yet sign up? <span>Click for sign up</span></a>
         </form>
     </div>

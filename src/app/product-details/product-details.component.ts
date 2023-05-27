@@ -17,6 +17,7 @@ export class ProductDetailsComponent implements OnInit {
   isSellerLoggedIn: boolean = false
   faEditIcon = faEdit
   cartItems: products | undefined
+  isLoading: boolean = false
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -27,6 +28,7 @@ export class ProductDetailsComponent implements OnInit {
 
   // getting product id from url and sending to product service
   ngOnInit(): void {
+    this.isLoading = true;
     let isSellerLoggedInLs = localStorage.getItem("sellerLoggedIn");
     if (isSellerLoggedInLs) {
       this.isSellerLoggedIn = true
@@ -38,6 +40,7 @@ export class ProductDetailsComponent implements OnInit {
         const productId = parseInt(paramId);
         productId && this.productService.getSingleProduct(productId).subscribe((data) => {
           this.productData = data;
+          this.isLoading = false;
         });
 
       }
@@ -54,6 +57,7 @@ export class ProductDetailsComponent implements OnInit {
 
           this.isProductInCart = false
         }
+        this.isLoading = false; 
       }
 
 
@@ -66,11 +70,11 @@ export class ProductDetailsComponent implements OnInit {
         this.cartService.cartData.subscribe((result) => {
           let item = result.filter((item: products) => paramId?.toString() === item.productId?.toString())
           if (item.length) {
-            // console.log("cart items check ", item);
             this.cartItems = item[0]
             this.isProductInCart = true;
           }
         })
+        this.isLoading = false; 
       }
     });
 

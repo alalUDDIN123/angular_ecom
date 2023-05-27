@@ -14,7 +14,9 @@ export class CartServiceService {
     private http: HttpClient
   ) { }
 
-  baseUrl="https://angula-ecom.onrender.com/cartData"
+  // baseUrl = "http://localhost:3000/cartData"
+  baseUrl = "https://angula-ecom.onrender.com/cartData"
+
 
   // add product to cart in local storgae when not logged In
 
@@ -54,23 +56,38 @@ export class CartServiceService {
     return this.http.post(this.baseUrl, data)
   }
 
-  // get method for getting cart items
-
+  // get method for getting cart items for immediate changes use
   getCartItems(userId: number) {
-    return this.http
-      .get<products[]>(`${this.baseUrl}?userId=` + userId, {
-        observe: 'response',
-      })
-      .subscribe((result) => {
-        if (result && result.body) {
-          this.cartData.emit(result.body);
-        }
-      });
+    return this.http.get<products[]>(`${this.baseUrl}?userId=` + userId, {
+      observe: 'response',
+    }).subscribe((result) => {
+      if (result && result.body) {
+        this.cartData.emit(result.body);
+
+      }
+    });
   }
+
 
   // remove cart item from database
 
   cartItemRemoveFromDb(id: number) {
     return this.http.delete(`${this.baseUrl}/` + id);
+  }
+
+
+  //load cart items when user visit to cart page
+  getCartData(userId: number) {
+    return this.http.get<cartType[]>(`${this.baseUrl}?userId=${userId}`)
+  }
+
+  // remove all cart items after order successfull
+  RemoveAllCartItems(cartId: number) {
+    
+    return this.http.delete(`${this.baseUrl}/` + cartId).subscribe((result) => {
+      if (result) {
+        this.cartData.emit([]);
+      }
+    })
   }
 }

@@ -23,10 +23,11 @@ export class AuthenticationComponent implements OnInit {
 
   showLogin = false;
   loginFailed: String = "";
+  isLoading: boolean = false
 
   registerFormhandle(registerForm: NgForm): void {
     const userSignupData = Object.assign({}, registerForm.value, { role_type: 'user' });
-    // console.log("sending data to signup:",userSignupData);
+    this.isLoading = true
 
     this.authService.userSignup(userSignupData)
       .subscribe(
@@ -34,6 +35,7 @@ export class AuthenticationComponent implements OnInit {
           if (result.hasOwnProperty('email')) {
             // Successful registration
             alert('Registration successful!');
+            this.isLoading = false
             this.navigate.navigate(['/']);
           } else {
             // Registration failed
@@ -50,19 +52,23 @@ export class AuthenticationComponent implements OnInit {
 
 
   loginFormhandle(loginData: NgForm): void {
-    //  console.log("login data:",loginData.value);
+    this.isLoading = true;
     this.authService.loginUser(loginData.value)
       .subscribe(
         (result: any) => {
+
+
           if (result[0] && result[0].role_type === "seller") {
             alert("Login Successful")
+            this.isLoading = false;
+
             localStorage.setItem("sellerLoggedIn", JSON.stringify(result[0].name))
             this.navigate.navigate(['seller-home'])
 
           } else if (result[0] && result[0].role_type === "user") {
             alert("Login Successful")
+            this.isLoading = false;
 
-            // for saving only name and id
             const user = {
               name: result[0].name,
               id: result[0].id
@@ -74,6 +80,7 @@ export class AuthenticationComponent implements OnInit {
           }
           else if (result.length === 0) {
             this.loginFailed = "Credentials not found"
+            this.isLoading = false
           } else {
             this.loginFailed = "Something went wrong"
           }

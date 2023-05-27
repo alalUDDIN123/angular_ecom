@@ -1,28 +1,36 @@
-<div class="product-container" *ngIf="productData">
+<!-- Show loading state if isLoading is true -->
+<div *ngIf="isLoading" class="loading-container">
+    <div class="loading-spinner"></div> 
+    <p class="loading-text">Please wait while retrieve the data....</p>
+  </div>
+  
+  <!-- Show product details if isLoading is false -->
+  <div class="product-container" *ngIf="!isLoading && productData">
+    <!-- Product details -->
     <div class="image-container">
-        <img class="product-img" src="{{productData.image}}" alt="">
+      <img class="product-img" src="{{productData.image}}" alt="">
     </div>
     <div class="prouct-details">
-        <p>{{productData.name}}</p>
-        <p>Price : ₹ <strong>{{productData.price}}</strong></p>
-        <div>Color :<h3 [style.backgroundColor]="productData.color" class="product-color"></h3>
-        </div>
-        <p>Category : <strong>{{productData.category}}</strong></p>
-        <p>Description: {{productData.description.length > 150 ? productData.description.slice(0, 150) + '...' :
-            productData.description}}</p>
-
-        <button class="form-button" *ngIf="!isSellerLoggedIn">Buy Now</button>
-        <button (click)="removeFromCart(productData.id)" class="form-button marginLeftbtn" *ngIf="isProductInCart && !isSellerLoggedIn">Remove from Cart</button>
-        <button class="form-button marginLeftbtn" *ngIf="!isProductInCart && !isSellerLoggedIn" (click)=" addToCart()">Add to Cart</button>        
-        <button class="form-button Editbtn" *ngIf="isSellerLoggedIn" (click)="EditRedirect(productData.id)">
-            <fa-icon [icon]="faEditIcon"></fa-icon>
-            Edit
-        </button>        
-        <div class="quantity-group" *ngIf="!isProductInCart && !isSellerLoggedIn">
-            <button  (click)="handleQuantity('min')" [disabled]="productQuantity === 1" [ngClass]="{'disabled': productQuantity === 1}">-</button>
-            <input type="text" value="{{productQuantity}}" />
-            <button (click)="handleQuantity('plus')" [disabled]="productQuantity === 5" [ngClass]="{'disabled': productQuantity === 5}">+</button>
-          </div>
-          
+      <p>{{productData.name}}</p>
+      <p>Price : ₹ <strong>{{productData.price}}</strong></p>
+      <div>Color :<h3 [style.backgroundColor]="productData.color" class="product-color"></h3></div>
+      <p>Category : <strong>{{productData.category}}</strong></p>
+      <p>Description: {{productData.description.length > 150 ? productData.description.slice(0, 150) + '...' :
+        productData.description}}</p>
+  
+      <!-- Buttons -->
+      <button class="form-button" *ngIf="!isSellerLoggedIn">Buy Now</button>
+      <button (click)="removeFromCart(productData.id)" class="form-button marginLeftbtn" *ngIf="isProductInCart && !isSellerLoggedIn">Remove from Cart</button>
+      <button class="form-button marginLeftbtn" *ngIf="!isProductInCart && !isSellerLoggedIn" (click)="addToCart()">Add to Cart</button>        
+      <button class="form-button Editbtn" *ngIf="isSellerLoggedIn" (click)="EditRedirect(productData.id)">
+        <fa-icon [icon]="faEditIcon"></fa-icon>
+        Edit
+      </button>
+      <div class="quantity-group" *ngIf="!isProductInCart && !isSellerLoggedIn">
+        <button (click)="handleQuantity('min')" [disabled]="productQuantity === 1" [ngClass]="{'disabled': productQuantity === 1}">-</button>
+        <input type="text" value="{{productQuantity}}" />
+        <button (click)="handleQuantity('plus')" [disabled]="productQuantity === 5" [ngClass]="{'disabled': productQuantity === 5}">+</button>
+      </div>
     </div>
-</div>
+  </div>
+  

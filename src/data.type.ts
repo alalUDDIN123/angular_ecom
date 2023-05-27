@@ -31,9 +31,19 @@
     id:number|undefined,
     userId:number
   }
+
+  interface priceSummary{
+    price:number,
+    discount:number,
+    tax:number,
+    delivery:number,
+    total:number
+  }
+
   export{
     signUp,
     login,
     products,
-    cartType
+    cartType,
+    priceSummary
   }

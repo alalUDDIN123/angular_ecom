@@ -16,7 +16,8 @@ import { SearchComponent } from './search/search.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { LoginComponent } from './login/login.component';
 import { SharedService } from './services/shared.service';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { CartComponent } from './cart/cart.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 
 
@@ -33,7 +34,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     SearchComponent,
     ProductDetailsComponent,
     LoginComponent,
-    PageNotFoundComponent
+    CartComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,

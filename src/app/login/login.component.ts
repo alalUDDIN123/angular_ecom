@@ -14,26 +14,29 @@ export class LoginComponent {
   constructor(
     private authService: AuthenticationService,
     private navigate: Router,
-    private cartService:CartServiceService
+    private cartService: CartServiceService
   ) { }
   loginFailed: String = "";
+  isLoading: boolean = false
 
   ngOnInit(): void {
     this.authService.notAllowedAuth()
   }
 
   loginFormhandle(loginData: NgForm): void {
-    //  console.log("login data:",loginData.value);
+    this.isLoading = true
     this.authService.loginUser(loginData.value)
       .subscribe(
         (result: any) => {
           if (result[0] && result[0].role_type === "seller") {
             alert("Login Successful")
+            this.isLoading=false
             localStorage.setItem("sellerLoggedIn", JSON.stringify(result[0].name))
             this.navigate.navigate(['seller-home'])
 
           } else if (result[0] && result[0].role_type === "user") {
             alert("Login Successful")
+            this.isLoading=false
 
             // for saving only name and id
             const user = {
@@ -47,8 +50,10 @@ export class LoginComponent {
           }
           else if (result.length === 0) {
             this.loginFailed = "Credentials not found"
+            this.isLoading=false
           } else {
             this.loginFailed = "Something went wrong"
+            this.isLoading=false
           }
         },
         (error: any) => {

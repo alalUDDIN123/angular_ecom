@@ -23,7 +23,7 @@
                 <li><a routerLink="seller-home">Seller</a></li>
                 <li><a routerLink="login">Login</a></li>
                 <li><a routerLink="auth">Signup</a></li>
-                <li><a routerLink="">Cart <span>{{cartItems}}</span> </a></li>
+                <li><a routerLink="cart">Cart <span>{{cartItems}}</span> </a></li>
             </ul>
 
 
@@ -41,12 +41,12 @@
             <ul class="menu userMenu" *ngSwitchCase="'user'" [class.open]="isMenuOpen">
                 <li><a routerLink="">Home</a></li>
                 <li><a>{{userName | titlecase}}</a></li>
-                <li><a routerLink="my-orders">My Orders</a></li>
                 <li><a (click)="userLogout()">Logout</a></li>
-                <li><a routerLink="">Cart <span>{{cartItems}}</span> </a></li>
+                <li><a routerLink="cart">Cart <span>{{cartItems}}</span> </a></li>
             </ul>
 
-
+            <!-- hamburger menu for responsive screen -->
+            
             <div class="burger" (click)="toggleMenu()" [class.open]="isMenuOpen">
                 <div class="line"></div>
                 <div class="line"></div>

@@ -10,7 +10,8 @@ export class ProductService {
     private http: HttpClient
   ) { }
 
-  baseUrl="https://angula-ecom.onrender.com/products"
+  // baseUrl="http://localhost:3000/products"
+  baseUrl = "https://angula-ecom.onrender.com/products"
 
   // post product 👍👍👍
   postProduct(data: products) {
