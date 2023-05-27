@@ -19,6 +19,9 @@ The application was built using the following tech stack:
 ### **`Deployed link`** 🚀 
 You can access this application through the following live link : [https://angualecom.com](https://e-comm-angular.netlify.app/)
 
+### **`Demon video`** 📹 
+Recorded demo video : [https://angualecom.com](https://google/video)
+
 ### **`How to Run Locally`** ❔
 
 To run this application locally, follow these steps:
@@ -34,13 +37,38 @@ By following these steps, you can easily set up and run the e-commerce applicati
 
 ---
 ---
-## **`Features implemented`**
-  - User registration and  authentication
-  - Separate pages for admin and regular users
-  - Protected routes for admin access
-  - Admin privileges to add, delete, and edit products
-  - Product retrieval, shopping cart functionality, and cart item removal
-  - Product search capability
+
+## Pages Included In This Project
+  - Home page
+  - Search page
+  - Product details
+  - Sign up and login page
+  - Cart page
+  - Checkout page
+  - Seller Home
+  - Add product
+  - Edit product
+  - Not found page
+
+---
+Thank you for clarifying. Based on the sentence and grammar, here's a revised version of your original statement:
+
+## **`Features Implemented`**:
+
+- User registration and authentication
+- Form validation
+- Separate pages for sellers and regular users
+- Protected routes for seller access
+- Seller privileges to add, delete, and edit products
+- Search feature
+- Product retrieval
+- Shopping cart functionality, including:
+  - Add to cart
+  - Remove from cart
+- Checkout and empty cart items
+- Restriction on login and sign-up pages if already logged in
+- Protected route when not logged in
+- Displaying a 404 page when encountering unavailable pages or URLs
 
 ---
 
@@ -93,7 +121,9 @@ By following these steps, you can easily set up and run the e-commerce applicati
 
 21. 👉 **Shared Service**: Created a shared service with a visually appealing and user-friendly design to facilitate data sharing between components.
 
-22. 👉 **404 Page**: The visually appealing 404 page provides clear messages, suggestions, and navigation options for a user-friendly experience when encountering unavailable pages or URLs.
+22. 👉 **Checkout**: Show total price and once ordered empty cart items  
+
+23. 👉 **404 Page**: The visually appealing 404 page provides clear messages, suggestions, and navigation options for a user-friendly experience when encountering unavailable pages or URLs.
 
 ---
 ---
