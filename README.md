@@ -51,7 +51,7 @@ By following these steps, you can easily set up and run the e-commerce applicati
   - Not found page
 
 ---
-Thank you for clarifying. Based on the sentence and grammar, here's a revised version of your original statement:
+
 
 ## **`Features Implemented`**:
 
