@@ -20,7 +20,7 @@ The application was built using the following tech stack:
 You can access this application through the following live link : [https://angualecom.com](https://e-comm-angular.netlify.app/)
 
 ### **`Demon video`** 📹 
-Recorded demo video : [https://angualecom.com](https://google/video)
+Recorded demo video : [Demo Video](https://drive.google.com/file/d/1hgvnoKtbMsffu7DsjOrGZcgOEBKfLPKy/view?usp=sharing)
 
 ### **`How to Run Locally`** ❔
 
