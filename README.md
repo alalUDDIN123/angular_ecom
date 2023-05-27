@@ -17,7 +17,7 @@ The application was built using the following tech stack:
 - Solely created by me
 
 ### **`Deployed link`** 🚀 
-You can be access this live application through the following link : [https://angualecom.com](https://e-comm-angular.netlify.app/)
+You can access this application through the following live link : [https://angualecom.com](https://e-comm-angular.netlify.app/)
 
 ### **`How to Run Locally`** ❔
 
@@ -33,6 +33,15 @@ To run this application locally, follow these steps:
 By following these steps, you can easily set up and run the e-commerce application locally on your machine.
 
 ---
+---
+## **`Features implemented`**
+  - User registration and  authentication
+  - Separate pages for admin and regular users
+  - Protected routes for admin access
+  - Admin privileges to add, delete, and edit products
+  - Product retrieval, shopping cart functionality, and cart item removal
+  - Product search capability
+
 ---
 
 ### **`Project Development Steps`** 🛠️
