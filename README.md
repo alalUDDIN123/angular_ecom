@@ -22,6 +22,10 @@ You can access this application through the following live link : [https://angua
 ### **`Demo video`** 📹 
 Recorded demo video : [Demo Video](https://drive.google.com/file/d/1hgvnoKtbMsffu7DsjOrGZcgOEBKfLPKy/view?usp=sharing)
 
+## **`For seller or admin access, please use the provided credentials`**:
+    - Email : nrupul@gmail.com
+    - Password : admin123
+
 ### **`How to Run Locally`** ❔
 
 To run this application locally, follow these steps:
