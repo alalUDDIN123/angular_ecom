@@ -1,5 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
+import {Title} from '@angular/platform-browser'
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { cartType, products } from 'src/data.type';
@@ -18,16 +19,19 @@ export class ProductDetailsComponent implements OnInit {
   faEditIcon = faEdit
   cartItems: products | undefined
   isLoading: boolean = false
+  loadingText: string = 'Loading product details...';
 
   constructor(
     private activeRoute: ActivatedRoute,
     private productService: ProductService,
     private route: Router,
-    private cartService: CartServiceService
+    private cartService: CartServiceService,
+    private titleService:Title
   ) { }
 
   // getting product id from url and sending to product service
   ngOnInit(): void {
+    this.titleService.setTitle("E-Comm | Product-Details")
     this.isLoading = true;
     let isSellerLoggedInLs = localStorage.getItem("sellerLoggedIn");
     if (isSellerLoggedInLs) {
@@ -51,13 +55,7 @@ export class ProductDetailsComponent implements OnInit {
       if (paramId && cartData) {
         let items = JSON.parse(cartData);
         items = items.filter((item: products) => paramId === item.id.toString());
-        if (items.length) {
-          this.isProductInCart = true
-        } else {
-
-          this.isProductInCart = false
-        }
-        this.isLoading = false; 
+        this.isProductInCart = items.length > 0;
       }
 
 
@@ -66,6 +64,7 @@ export class ProductDetailsComponent implements OnInit {
       if (user) {
         let userId = user && JSON.parse(user).id;
         this.cartService.getCartItems(userId);
+        this.isLoading = true;
 
         this.cartService.cartData.subscribe((result) => {
           let item = result.filter((item: products) => paramId?.toString() === item.productId?.toString())
@@ -73,8 +72,10 @@ export class ProductDetailsComponent implements OnInit {
             this.cartItems = item[0]
             this.isProductInCart = true;
           }
+          this.isLoading = false;
         })
-        this.isLoading = false; 
+        
+        
       }
     });
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Title} from '@angular/platform-browser'
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
@@ -14,13 +15,16 @@ export class LoginComponent {
   constructor(
     private authService: AuthenticationService,
     private navigate: Router,
-    private cartService: CartServiceService
+    private cartService: CartServiceService,
+    private titleService:Title
   ) { }
   loginFailed: String = "";
   isLoading: boolean = false
 
   ngOnInit(): void {
-    this.authService.notAllowedAuth()
+    this.titleService.setTitle("E-Comm | Login")
+    this.authService.notAllowedAuth();
+    
   }
 
   loginFormhandle(loginData: NgForm): void {

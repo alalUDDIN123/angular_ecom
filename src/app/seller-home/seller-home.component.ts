@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser'
 import { ProductService } from '../services/product.service';
 import { products } from 'src/data.type';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
@@ -14,20 +15,21 @@ export class SellerHomeComponent implements OnInit {
 
   deleteFonticon = faTrash
   EditFonticon = faEdit
-
   /// creating state as we do in react
   productList: undefined | products[]
-
-
   showDeleteSuccessMessage: String = ""
+  isLoading: boolean = false
+  loadingText: string = 'Please wait while retriving data...';
 
   constructor(
     private product: ProductService,
-    private route: Router
+    private route: Router,
+    private titleService: Title
   ) { }
 
   ngOnInit(): void {
-    this.showProduct()
+    this.showProduct();
+    this.titleService.setTitle("E-Comm | Seller-Home")
   }
 
   // delete function
@@ -57,8 +59,10 @@ export class SellerHomeComponent implements OnInit {
     this.route.navigate([`seller-update-product/${id}`])
   }
   showProduct() {
+    this.isLoading = true
     this.product.getProductList().subscribe(data => {
       this.productList = data
+      this.isLoading = false
     })
   }
 

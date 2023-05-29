@@ -1,9 +1,6 @@
 <!-- Show loading state if isLoading is true -->
-<div *ngIf="isLoading" class="loading-container">
-    <div class="loading-spinner"></div> 
-    <p class="loading-text">Please wait while retrieve the data....</p>
-  </div>
-  
+<app-loading [isLoading]="isLoading" [loadingText]="loadingText"></app-loading>
+
   <!-- Show product details if isLoading is false -->
   <div class="product-container" *ngIf="!isLoading && productData">
     <!-- Product details -->

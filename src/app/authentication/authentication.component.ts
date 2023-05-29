@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {Title} from '@angular/platform-browser'
 import { AuthenticationService } from '../services/authentication.service';
 import { NgForm } from '@angular/forms';
 import { cartType, products } from 'src/data.type';
@@ -14,11 +15,13 @@ export class AuthenticationComponent implements OnInit {
   constructor(
     private authService: AuthenticationService,
     private navigate: Router,
-    private cartService: CartServiceService
+    private cartService: CartServiceService,
+    private titleService:Title
   ) { }
 
   ngOnInit(): void {
-    this.authService.notAllowedAuth()
+    this.authService.notAllowedAuth();
+    this.titleService.setTitle("E-Comm | Registration | Authentication")
   }
 
   showLogin = false;

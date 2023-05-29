@@ -18,6 +18,9 @@ import { LoginComponent } from './login/login.component';
 import { SharedService } from './services/shared.service';
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { LoadingComponent } from './loading/loading.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 
@@ -35,7 +38,10 @@ import { CheckoutComponent } from './checkout/checkout.component';
     ProductDetailsComponent,
     LoginComponent,
     CartComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    UnauthorizedComponent,
+    LoadingComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

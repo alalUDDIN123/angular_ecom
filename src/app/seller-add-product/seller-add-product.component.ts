@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import {Title} from '@angular/platform-browser'
 import { ProductService } from '../services/product.service';
 import { products } from 'src/data.type';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-seller-add-product',
@@ -12,9 +14,16 @@ export class SellerAddProductComponent {
   showSuccesMessage: String = ""
 
   constructor(
-    private productService: ProductService
+    private productService: ProductService,
+    private titleService:Title,
+    private navigateRoute:Router
   ) {
 
+  }
+
+  ngOnInit(): void {
+  
+    this.titleService.setTitle("E-Comm | Seller-Add-Product")
   }
 
   addProductHandle(data: products) {
@@ -28,6 +37,7 @@ export class SellerAddProductComponent {
 
     setTimeout(() => {
       this.showSuccesMessage = ""
-    }, 3000);
+      this.navigateRoute.navigate(['seller-home'])
+    }, 1000);
   }
 }

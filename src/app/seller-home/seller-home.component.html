@@ -1,3 +1,5 @@
+
+
 <div class="product-list">
     <h1>Product List</h1>
     <p class="showMessage-p">{{showDeleteSuccessMessage}}</p>
@@ -11,7 +13,7 @@
                 <th>Action</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody *ngIf="!isLoading">
 
             <tr *ngFor="let item of productList">
                 <td>
@@ -32,4 +34,5 @@
 
         </tbody>
     </table>
+    <app-loading [isLoading]="isLoading" [loadingText]="loadingText"></app-loading>
 </div>

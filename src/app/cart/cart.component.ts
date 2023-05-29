@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Title} from '@angular/platform-browser'
 import { cartType, priceSummary } from 'src/data.type';
 import { CartServiceService } from '../services/cart-service.service';
 import { Router } from '@angular/router';
@@ -20,11 +21,13 @@ export class CartComponent {
   }
 
   loading: boolean = true;
+  loadingText: string = 'Loading cart items...';
 
 
   constructor(
     private cartService: CartServiceService,
-    private router:Router
+    private router:Router,
+    private titleService:Title
 
   ) { }
 
@@ -32,7 +35,8 @@ export class CartComponent {
 
 
   ngOnInit(): void {
-    this.loadCartItems()
+    this.loadCartItems();
+    this.titleService.setTitle("E-Comm | Cart")
   }
 
 

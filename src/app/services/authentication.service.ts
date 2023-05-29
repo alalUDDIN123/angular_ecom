@@ -16,6 +16,7 @@ export class AuthenticationService {
     private navigate: Router
   ) { }
 
+  // baseUrl="http://localhost:3000/registeredUsers"
   baseUrl="https://angula-ecom.onrender.com/registeredUsers"
 
   // post request for register

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { faChevronLeft, faChevronRight, faEye, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import {Title} from '@angular/platform-browser'
 import { ProductService } from '../services/product.service';
 import { products } from 'src/data.type';
 
@@ -12,6 +13,7 @@ import { products } from 'src/data.type';
 export class HomeComponent implements OnInit {
   // loading 
   isLoading: boolean = false;
+  loadingText: string = 'Loading products...';
   // data
   productData: undefined | products[]
 
@@ -23,7 +25,8 @@ export class HomeComponent implements OnInit {
 
 
   constructor(
-    private product: ProductService
+    private product: ProductService,
+    private titleService:Title
   ) { }
 
 
@@ -37,7 +40,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.startAutoplay();
-    this.getProductList()
+    this.getProductList();
+    this.titleService.setTitle("E-Comm | Home")
   }
 
   // fetching or calling fetch functioin which is defined 

@@ -1,7 +1,4 @@
-<div *ngIf="loading" class="loading">
-  <p>Please hold on. Data fetching...</p>
-</div>
-
+<app-loading [isLoading]="loading" [loadingText]="loadingText"></app-loading>
 <!-- not found cart item -->
 <div *ngIf="(!cartData || cartData.length === 0) && !isLoggedIn && !loading" class="no_cart_found">
   <h1>Cart Item Not Found</h1>

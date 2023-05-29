@@ -1,4 +1,6 @@
-<div class="container">
+<app-loading [isLoading]="isLoading" [loadingText]="loadingText"></app-loading>
+
+<div class="container" *ngIf="!isLoading">
     <h2>Update product </h2>
     <p class="showMessage-p">{{showUpdatSuccesMessage}}</p>
     

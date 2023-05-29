@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import {Title} from '@angular/platform-browser'
 import { cartType } from 'src/data.type';
 import { CartServiceService } from '../services/cart-service.service';
 import { Router } from '@angular/router';
@@ -20,10 +21,12 @@ export class CheckoutComponent {
 
   constructor(
     private cartService: CartServiceService,
-    private route: Router
+    private route: Router,
+    private titleService:Title
   ) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle("E-Comm | Checkout")
     this.loadCartItems()
   }
 
