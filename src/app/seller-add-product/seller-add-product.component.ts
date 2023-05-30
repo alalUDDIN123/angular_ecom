@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Title} from '@angular/platform-browser'
+import { Title } from '@angular/platform-browser'
 import { ProductService } from '../services/product.service';
 import { products } from 'src/data.type';
 import { Router } from '@angular/router';
@@ -11,33 +11,34 @@ import { Router } from '@angular/router';
 })
 export class SellerAddProductComponent {
 
-  showSuccesMessage: String = ""
+  isProductAdded: boolean = false;
+  loadingText: string = '';
 
   constructor(
     private productService: ProductService,
-    private titleService:Title,
-    private navigateRoute:Router
+    private titleService: Title,
+    private navigateRoute: Router
   ) {
 
   }
 
   ngOnInit(): void {
-  
+
     this.titleService.setTitle("E-Comm | Seller-Add-Product")
   }
 
   addProductHandle(data: products) {
-    // console.log("data:",data);
+    this.isProductAdded = true;
+    this.loadingText = this.isProductAdded ? "Please wait while adding product to the database..." : '""';
     this.productService.postProduct(data).subscribe((result) => {
-      console.warn(result);
       if (result) {
-        this.showSuccesMessage = 'Product is added successfully';
+        this.isProductAdded = false;
+        alert('The product has been successfully added');
+
+        this.navigateRoute.navigate(['seller-home']);
+      } else {
+        alert("Something went wrong");
       }
     });
-
-    setTimeout(() => {
-      this.showSuccesMessage = ""
-      this.navigateRoute.navigate(['seller-home'])
-    }, 1000);
   }
 }

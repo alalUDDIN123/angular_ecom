@@ -19,8 +19,6 @@
 
             <!-- for default nav menu -->
             <ul class="menu defaultMenu" *ngSwitchCase="'default'" [class.open]="isMenuOpen">
-
-                <li><a routerLink="seller-home">Seller</a></li>
                 <li><a routerLink="login">Login</a></li>
                 <li><a routerLink="auth">Signup</a></li>
                 <li><a routerLink="cart">Cart <span>{{cartItems}}</span> </a></li>

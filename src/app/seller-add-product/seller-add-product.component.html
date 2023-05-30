@@ -1,6 +1,7 @@
-<div class="container">
+<app-loading [isLoading]=" isProductAdded" [loadingText]="loadingText"></app-loading>
+
+<div class="container" *ngIf="!isProductAdded">
   <h2>Add Product</h2>
-  <p  class="showMessage-p" >{{showSuccesMessage}}</p>
   <form #productForm="ngForm" (ngSubmit)="addProductHandle(productForm.value)">
     <div class="form-group">
       <label for="name">Product Name:</label>

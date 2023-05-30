@@ -15,15 +15,14 @@ export class SellerUpdateProductComponent implements OnInit {
   productData: undefined | products
   showUpdatSuccesMessage: String = ""
   isLoading: boolean = false
+  isProductUpdated: boolean = false;
   loadingText: string = 'Fetching product...';
-
 
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
     private navigateRoute: Router,
     private titleService: Title
-
   ) { }
 
   ngOnInit(): void {
@@ -36,29 +35,29 @@ export class SellerUpdateProductComponent implements OnInit {
         this.productData = data;
         this.isLoading = false
       });
-
     }
   }
 
+  // Setter for loadingText
+  setLoadingText(): void {
+    this.loadingText = this.isProductUpdated ? "Please hold on while updating product..." : '""';
+  }
 
   // update function
-
   updateProductHandle(data: products) {
     if (this.productData) {
       data.id = this.productData.id
     }
+    this.isProductUpdated = true;
+    this.setLoadingText(); 
     this.productService.updateProduct(data).subscribe(response => {
       if (response) {
         this.showUpdatSuccesMessage = `Product updated successfully`,
-          setTimeout(() => {
-            this.navigateRoute.navigate(['seller-home'])
-          }, 1000)
+        this.isProductUpdated = false;
+        setTimeout(() => {
+          this.navigateRoute.navigate(['seller-home'])
+        }, 1000)
       }
     })
-
   }
-
-
-
-
 }

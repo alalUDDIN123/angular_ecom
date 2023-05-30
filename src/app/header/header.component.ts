@@ -19,7 +19,8 @@ export class HeaderComponent {
   userName: string = ""
   searchResult: undefined | products[]
   cartItems = 0;
-  private routeSubscription: any;
+
+
 
   @ViewChild('defaultMenu') defaultMenu!: ElementRef;
   @ViewChild('sellerMenu') sellerMenu!: ElementRef;
@@ -37,7 +38,8 @@ export class HeaderComponent {
 
 
   ngOnInit(): void {
-    this.routeSubscription = this.route.events.subscribe((val: any) => {
+ 
+   this.route.events.subscribe((val: any) => {
       // console.log("navbar route value:", val);
       if (val.url) {
         if (localStorage.getItem('sellerLoggedIn') && val.url.includes('/')) {
@@ -68,9 +70,6 @@ export class HeaderComponent {
         else {
           this.menuType = 'default';
         }
-
-        // checking user logged In or not for giving access to cart route
-      
 
       }
     })

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {Title} from '@angular/platform-browser'
+import { Component, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser'
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
@@ -16,58 +16,77 @@ export class LoginComponent {
     private authService: AuthenticationService,
     private navigate: Router,
     private cartService: CartServiceService,
-    private titleService:Title
+    private titleService: Title
   ) { }
   loginFailed: String = "";
   isLoading: boolean = false
+  @ViewChild('loginForm') loginFormRef?: NgForm;
 
   ngOnInit(): void {
     this.titleService.setTitle("E-Comm | Login")
     this.authService.notAllowedAuth();
-    
+
   }
 
+  // login form handle
   loginFormhandle(loginData: NgForm): void {
-    this.isLoading = true
+    this.isLoading = true;
     this.authService.loginUser(loginData.value)
       .subscribe(
         (result: any) => {
+          this.loginFormRef?.reset();
           if (result[0] && result[0].role_type === "seller") {
-            alert("Login Successful")
-            this.isLoading=false
-            localStorage.setItem("sellerLoggedIn", JSON.stringify(result[0].name))
-            this.navigate.navigate(['seller-home'])
+            alert("Login Successful");
+            this.isLoading = false;
+            localStorage.setItem("sellerLoggedIn", JSON.stringify(result[0].name));
+            this.loginFormRef?.reset();
+            this.navigate.navigate(['seller-home']);
 
           } else if (result[0] && result[0].role_type === "user") {
-            alert("Login Successful")
-            this.isLoading=false
-
-            // for saving only name and id
+            alert("Login Successful");
+            this.isLoading = false;
+            this.loginFormRef?.reset();
             const user = {
               name: result[0].name,
               id: result[0].id
             };
-            localStorage.setItem("userLoggedIn", JSON.stringify(user));
-            this.localCartToRemoteCart()
-            this.navigate.navigate([''])
 
-          }
-          else if (result.length === 0) {
-            this.loginFailed = "Credentials not found"
-            this.isLoading=false
+            localStorage.setItem("userLoggedIn", JSON.stringify(user));
+            this.localCartToRemoteCart();
+            this.navigate.navigate(['']);
+
+          } else if (result.length === 0) {
+            this.loginFailed = "Credentials not found";
+            this.isLoading = false;
+            this.loginFormRef?.reset();
+
+            // Empty the loginFailed variable after a delay
+            setTimeout(() => {
+              this.loginFailed = "";
+            }, 2000);
           } else {
-            this.loginFailed = "Something went wrong"
-            this.isLoading=false
+            this.loginFailed = "Something went wrong";
+            this.isLoading = false;
+            this.loginFormRef?.reset();
+
+            // Empty the loginFailed variable after a delay
+            setTimeout(() => {
+              this.loginFailed = "";
+            }, 2000);
           }
         },
         (error: any) => {
-          this.loginFailed = "Network or server error"
-          // console.error(error)
+          this.loginFailed = "Network or server error";
+          this.loginFormRef?.reset();
+
+          // Empty the loginFailed variable after a delay
+          setTimeout(() => {
+            this.loginFailed = "";
+          }, 2000);
         }
       );
-
-
   }
+
 
   redirectToSignup() {
     this.navigate.navigate(['auth'])
