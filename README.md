@@ -61,6 +61,7 @@ By following these steps, you can easily set up and run the e-commerce applicati
 
 - User registration and authentication
 - Form validation
+- Email existence check during registration to prevent duplicate registrations
 - Separate pages for sellers and regular users
 - Protected routes for seller access
 - Seller privileges to add, delete, and edit products
