@@ -5,6 +5,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { NgForm } from '@angular/forms';
 import { cartType, products } from 'src/data.type';
 import { CartServiceService } from '../services/cart-service.service';
+import { signUp } from 'src/data.type';
 
 @Component({
   selector: 'app-authentication',
@@ -36,32 +37,65 @@ export class AuthenticationComponent implements OnInit {
 
 
   // registration form handle
-
   registerFormhandle(registerForm: NgForm): void {
-    const userSignupData = Object.assign({}, registerForm.value, { role_type: 'user' });
+    const userSignupData: signUp = {
+      name: registerForm.value.name,
+      email: registerForm.value.email,
+      password: registerForm.value.password,
+      role_type: 'user'
+    };
     this.isLoading = true;
-  
-    this.authService.userSignup(userSignupData)
+
+    this.authService.checkEmailExists(userSignupData.email)
       .subscribe(
-        (result) => {
-          if (result.hasOwnProperty('email')) {
-            // Successful registration
-            alert('Registration successful!');
+        (emailExists: boolean) => {
+          if (emailExists) {
+            // Email already exists
+            alert('Email already exists. Please choose a different email.');
             this.isLoading = false;
             this.registerForm?.reset();
-            this.navigate.navigate(['/']);
           } else {
-            // Registration failed
-            alert('Registration failed.');
+            this.authService.userSignup(userSignupData)
+              .subscribe(
+                (result: any) => {
+                  if (result.email) {
+                    // Successful registration
+                    alert('Registration successful!');
+                    const user = {
+                      name: result.name,
+                      id: result.id
+                    };
+
+                    if (result.role_type === "user") {
+                      localStorage.setItem("userLoggedIn", JSON.stringify(user));
+                    } else {
+                      localStorage.setItem("sellerLoggedIn", JSON.stringify(user.name));
+                    }
+
+                    this.isLoading = false;
+                    this.registerForm?.reset();
+                    this.navigate.navigate(['/']);
+                  } else {
+                    // Registration failed
+                    alert('Registration failed.');
+                  }
+                },
+                (error) => {
+                  // Error occurred during registration
+                  alert('Error occurred during registration');
+                }
+              );
           }
         },
         (error) => {
-          // Error occurred during registration
-          alert('Error occurred during registration');
+          // Error occurred during email existence check
+          alert('Error occurred during email existence check');
         }
       );
   }
-  
+
+
+
 
   // login form handle
   loginFormhandle(loginData: NgForm): void {
@@ -76,7 +110,7 @@ export class AuthenticationComponent implements OnInit {
             localStorage.setItem("sellerLoggedIn", JSON.stringify(result[0].name));
             this.loginFormRef?.reset();
             this.navigate.navigate(['seller-home']);
-  
+
           } else if (result[0] && result[0].role_type === "user") {
             alert("Login Successful");
             this.isLoading = false;
@@ -85,43 +119,43 @@ export class AuthenticationComponent implements OnInit {
               name: result[0].name,
               id: result[0].id
             };
-  
+
             localStorage.setItem("userLoggedIn", JSON.stringify(user));
             this.localCartToRemoteCart();
             this.navigate.navigate(['']);
-  
+
           } else if (result.length === 0) {
             this.loginFailed = "Credentials not found";
             this.isLoading = false;
             this.loginFormRef?.reset();
-  
+
             // Empty the loginFailed variable after a delay
             setTimeout(() => {
               this.loginFailed = "";
-            }, 2000); 
+            }, 2000);
           } else {
             this.loginFailed = "Something went wrong";
             this.isLoading = false;
             this.loginFormRef?.reset();
-  
+
             // Empty the loginFailed variable after a delay
             setTimeout(() => {
               this.loginFailed = "";
-            }, 2000); 
+            }, 2000);
           }
         },
         (error: any) => {
           this.loginFailed = "Network or server error";
           this.loginFormRef?.reset();
-  
+
           // Empty the loginFailed variable after a delay
           setTimeout(() => {
             this.loginFailed = "";
-          }, 2000); 
+          }, 2000);
         }
       );
   }
-  
+
 
   openLogin() {
     this.showLogin = true

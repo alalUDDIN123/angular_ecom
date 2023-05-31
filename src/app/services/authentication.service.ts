@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http"
 import { login, signUp } from 'src/data.type';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject,Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -18,6 +19,14 @@ export class AuthenticationService {
 
   // baseUrl="http://localhost:3000/registeredUsers"
   baseUrl="https://angula-ecom.onrender.com/registeredUsers"
+
+  checkEmailExists(email: string): Observable<boolean> {
+    const url = `${this.baseUrl}?email=${email}`;
+    // Make a request to the JSON server to check if the email exists
+    return this.http.get<any[]>(url).pipe(
+      map((users: any[]) => users.length > 0)
+    );
+  }
 
   // post request for register
   userSignup(data: signUp) {

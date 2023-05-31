@@ -2,6 +2,7 @@
     name: string;
     email: string;
     password: string;
+    role_type:String
   }
    interface login {
     email: String;
