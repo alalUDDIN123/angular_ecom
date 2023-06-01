@@ -11,7 +11,7 @@ export class ProductService {
   ) { }
 
   // baseUrl="http://localhost:3000/products"
-  baseUrl = "https://angula-ecom.onrender.com/products"
+  baseUrl = "https://calm-blue-hippo-veil.cyclic.app/products"
 
   // post product 👍👍👍
   postProduct(data: products) {

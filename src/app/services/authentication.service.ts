@@ -18,7 +18,7 @@ export class AuthenticationService {
   ) { }
 
   // baseUrl="http://localhost:3000/registeredUsers"
-  baseUrl="https://angula-ecom.onrender.com/registeredUsers"
+  baseUrl="https://calm-blue-hippo-veil.cyclic.app/registeredUsers"
 
   checkEmailExists(email: string): Observable<boolean> {
     const url = `${this.baseUrl}?email=${email}`;
