@@ -17,7 +17,7 @@
   
       <!-- Buttons -->
       
-      <button (click)="removeFromCart(productData.id)" class="form-button marginLeftbtn" *ngIf="isProductInCart && !isSellerLoggedIn">Remove from Cart</button>
+      <button (click)="removeFromCart(productData._id)" class="form-button marginLeftbtn" *ngIf="isProductInCart && !isSellerLoggedIn">Remove from Cart</button>
       <button class="form-button marginLeftbtn" *ngIf="!isProductInCart && !isSellerLoggedIn" (click)="addToCart()">Add to Cart</button>        
       <button class="form-button Editbtn" *ngIf="isSellerLoggedIn" (click)="EditRedirect(productData.id)">
         <fa-icon [icon]="faEditIcon"></fa-icon>

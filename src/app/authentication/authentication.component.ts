@@ -46,115 +46,105 @@ export class AuthenticationComponent implements OnInit {
     };
     this.isLoading = true;
 
-    this.authService.checkEmailExists(userSignupData.email)
+    this.authService.userSignup(userSignupData)
       .subscribe(
-        (emailExists: boolean) => {
-          if (emailExists) {
-            // Email already exists
-            alert('Email already exists. Please choose a different email.');
-            this.isLoading = false;
-            this.registerForm?.reset();
-          } else {
-            this.authService.userSignup(userSignupData)
-              .subscribe(
-                (result: any) => {
-                  if (result.email) {
-                    // Successful registration
-                    alert('Registration successful!');
-                    const user = {
-                      name: result.name,
-                      id: result.id
-                    };
+        (result: any) => {
+          // console.log("Response from backend:", result);
 
-                    if (result.role_type === "user") {
-                      localStorage.setItem("userLoggedIn", JSON.stringify(user));
-                    } else {
-                      localStorage.setItem("sellerLoggedIn", JSON.stringify(user.name));
-                    }
+          if (result.msg === "User already exist, please login") {
+            alert(result.msg);
+          } else if (result.users?.role_type === "seller") {
 
-                    this.isLoading = false;
-                    this.registerForm?.reset();
-                    this.navigate.navigate(['/']);
-                  } else {
-                    // Registration failed
-                    alert('Registration failed.');
-                  }
-                },
-                (error) => {
-                  // Error occurred during registration
-                  alert('Error occurred during registration');
-                }
-              );
+            alert('Registration successful!');
+
+            localStorage.setItem("sellerLoggedIn", JSON.stringify(result.users?.name));
+            this.navigate.navigate(['/']);
+          }
+          else if (result.users?.role_type == "user") {
+            alert('Registration successful!');
+            const user = {
+              name: result.users.name,
+              id: result.users._id
+            };
+            localStorage.setItem("userLoggedIn", JSON.stringify(user));
+            this.navigate.navigate(['/']);
+          }
+          else {
+            alert('Registration failed.');
           }
         },
         (error) => {
-          // Error occurred during email existence check
-          alert('Error occurred during email existence check');
+          // console.log("Error during registration:", error);
+
+          if (error.status === 400 && error.error.msg === "User already exist, please login") {
+            alert('Email already exists. Please choose a different email.');
+          } else {
+            alert('Error occurred during registration');
+          }
         }
-      );
+      )
+      .add(() => {
+        this.isLoading = false;
+        this.registerForm?.reset();
+      });
   }
+
+
 
 
 
 
   // login form handle
   loginFormhandle(loginData: NgForm): void {
+
+
     this.isLoading = true;
     this.authService.loginUser(loginData.value)
       .subscribe(
         (result: any) => {
-          this.loginFormRef?.reset();
-          if (result[0] && result[0].role_type === "seller") {
+          this.loginFormRef?.resetForm();
+          if (result.loggedUser && result.loggedUser.role_type === "seller") {
             alert("Login Successful");
-            this.isLoading = false;
-            localStorage.setItem("sellerLoggedIn", JSON.stringify(result[0].name));
-            this.loginFormRef?.reset();
+            localStorage.setItem("sellerLoggedIn", JSON.stringify(result.loggedUser.name));
             this.navigate.navigate(['seller-home']);
-
-          } else if (result[0] && result[0].role_type === "user") {
+          } else if (result.loggedUser && result.loggedUser.role_type === "user") {
             alert("Login Successful");
-            this.isLoading = false;
-            this.loginFormRef?.reset();
             const user = {
-              name: result[0].name,
-              id: result[0].id
+              name: result.loggedUser.name,
+              id: result.loggedUser._id
             };
-
             localStorage.setItem("userLoggedIn", JSON.stringify(user));
             this.localCartToRemoteCart();
             this.navigate.navigate(['']);
-
-          } else if (result.length === 0) {
-            this.loginFailed = "Credentials not found";
-            this.isLoading = false;
-            this.loginFormRef?.reset();
-
-            // Empty the loginFailed variable after a delay
-            setTimeout(() => {
-              this.loginFailed = "";
-            }, 2000);
           } else {
-            this.loginFailed = "Something went wrong";
-            this.isLoading = false;
-            this.loginFormRef?.reset();
-
-            // Empty the loginFailed variable after a delay
+            this.loginFailed = "Credentials not found";
             setTimeout(() => {
               this.loginFailed = "";
             }, 2000);
           }
         },
         (error: any) => {
-          this.loginFailed = "Network or server error";
-          this.loginFormRef?.reset();
+          if (error.status === 400 && error.error.message === "Password does not match with used email") {
 
-          // Empty the loginFailed variable after a delay
-          setTimeout(() => {
-            this.loginFailed = "";
-          }, 2000);
+            alert('Password does not match with used email.');
+            this.loginFormRef?.resetForm();
+            this.isLoading = false;
+          } else if (error.status === 404 && error.error.message === `This email : ${loginData.value.email} is not found in our database`) {
+            alert(error.error.message);
+            this.loginFormRef?.resetForm();
+            this.isLoading = false;
+          }
+          else {
+            alert('Error occurred while fetching credentials');
+          }
+        },
+        () => {
+          this.isLoading = false;
         }
       );
   }
+
+
 
 
   openLogin() {
@@ -174,7 +164,7 @@ export class AuthenticationComponent implements OnInit {
       cartDataList.forEach((product: products, index) => {
         let cartData: cartType = {
           ...product,
-          productId: product.id,
+          productId: product._id,
           userId
         }
         delete cartData.id;

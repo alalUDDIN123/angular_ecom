@@ -30,8 +30,7 @@ export class SellerUpdateProductComponent implements OnInit {
     const productIdParam = this.route.snapshot.paramMap.get("id");
     if (productIdParam !== null) {
       this.isLoading = true
-      const productId = parseInt(productIdParam);
-      productId && this.productService.getSingleProduct(productId).subscribe((data) => {
+      productIdParam && this.productService.getSingleProduct(productIdParam).subscribe((data) => {
         this.productData = data;
         this.isLoading = false
       });
@@ -46,17 +45,19 @@ export class SellerUpdateProductComponent implements OnInit {
   // update function
   updateProductHandle(data: products) {
     if (this.productData) {
-      data.id = this.productData.id
+      data._id = this.productData._id
     }
     this.isProductUpdated = true;
-    this.setLoadingText(); 
+    this.setLoadingText();
+    // console.log("data which would pass for update", data);
+
     this.productService.updateProduct(data).subscribe(response => {
       if (response) {
         this.showUpdatSuccesMessage = `Product updated successfully`,
         this.isProductUpdated = false;
         setTimeout(() => {
           this.navigateRoute.navigate(['seller-home'])
-        }, 1000)
+        }, 2000)
       }
     })
   }

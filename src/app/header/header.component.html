@@ -4,14 +4,25 @@
             <h1>E-COMM</h1>
         </div>
         <div class="search">
-            <input type="text" #searchInput placeholder="Search products..." (input)="onSearchInput($event)" (blur)="hideSearch()" >
-            <button (click)="searchbtn(searchInput.value)">Search</button>  
-        <!-- search result -->
-        <ul class="suggested-search" *ngIf="searchResult">
-            <li *ngFor="let item of searchResult">
-              <a (mousedown)="redirectToDetails(item.id)" >{{item.name}}</a>
-            </li>
-          </ul>
+            <input type="text" #searchInput placeholder="Search products..." (input)="onSearchInput($event)"
+                (blur)="hideSearch()">
+            <!-- (blur)="hideSearch()" -->
+            <button (click)="searchbtn(searchInput.value)">Search</button>
+            <!-- search result -->
+            <ul *ngIf="searchResult" [ngClass]="{
+              'small-search': searchResult && searchResult.length <= 5,
+              'large-search': searchResult && searchResult.length > 5,
+              'no-search': !searchResult || searchResult.length === 0
+            }">
+                <li *ngFor="let item of searchResult">
+                    <a (mousedown)="redirectToDetails(item._id)">{{ item.name }}</a>
+                </li>
+            </ul>
+
+
+
+
+
         </div>
 
 
@@ -30,7 +41,7 @@
             <ul class="menu sellerMenu" *ngSwitchCase="'seller'" [class.open]="isMenuOpen">
                 <li><a routerLink="seller-add-product">Add Product</a></li>
                 <li><a routerLink="seller-home">List</a></li>
-                <li><a (click)=" sellerLogout()" >Logout</a></li>
+                <li><a (click)=" sellerLogout()">Logout</a></li>
                 <li><a>{{sellerName | titlecase}}</a></li>
             </ul>
 
@@ -44,7 +55,7 @@
             </ul>
 
             <!-- hamburger menu for responsive screen -->
-            
+
             <div class="burger" (click)="toggleMenu()" [class.open]="isMenuOpen">
                 <div class="line"></div>
                 <div class="line"></div>

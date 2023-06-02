@@ -8,11 +8,11 @@
     <p>Price: ₹ {{productData.price}}</p>
   </div>
   <div class="button-container">
-    <button (click)="redirectProductDetails(productData.id)" [class.onlyViewDetailsbtn]="!isSellerLoggedIn">
+    <button (click)="redirectProductDetails(productData._id)" [class.onlyViewDetailsbtn]="!isSellerLoggedIn">
       <fa-icon [icon]="viewdet"></fa-icon>
       View details
     </button>
-    <button *ngIf="isSellerLoggedIn" (click)="EditRedirect(productData.id)">
+    <button *ngIf="isSellerLoggedIn" (click)="EditRedirect(productData._id)">
       <fa-icon [icon]="faEditIcon"></fa-icon>
       Edit
     </button>

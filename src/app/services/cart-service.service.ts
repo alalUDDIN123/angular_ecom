@@ -15,7 +15,7 @@ export class CartServiceService {
   ) { }
 
   // baseUrl = "http://localhost:3000/cartData"
-  baseUrl = "https://calm-blue-hippo-veil.cyclic.app/cartData"
+  baseUrl = "https://angula-ecom.onrender.com/cartData"
 
 
   // add product to cart in local storgae when not logged In
@@ -40,11 +40,13 @@ export class CartServiceService {
 
   // remove local cart item
 
-  removeItemFromCart(productId: number) {
+  removeItemFromCart(productId: String) {
+    // console.log("remove cart id",productId);
+    
     let cartData = localStorage.getItem('localCart');
     if (cartData) {
       let items: products[] = JSON.parse(cartData);
-      items = items.filter((item: products) => productId !== item.id);
+      items = items.filter((item: products) => productId !== item._id);
       localStorage.setItem('localCart', JSON.stringify(items));
       this.cartData.emit(items);
     }

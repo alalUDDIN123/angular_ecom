@@ -1,50 +1,52 @@
- interface signUp {
-    name: string;
-    email: string;
-    password: string;
-    role_type:String
-  }
-   interface login {
-    email: String;
-    password: String;
-  }
+interface signUp {
+  name: string;
+  email: string;
+  password: string;
+  role_type: String
+}
+interface login {
+  email: String;
+  password: String;
+}
 
-  interface products{
-    name:string,
-    price:number,
-    category:string,
-    color:string,
-    image:string,
-    description:string,
-    id:number,
-    quantity:undefined | number,
-    productId:undefined|number
-  }
-  interface cartType{
-    name:string,
-    price:number,
-    category:string,
-    color:string,
-    image:string,
-    description:string,
-    quantity:undefined | number,
-    productId:number,
-    id:number|undefined,
-    userId:number
-  }
+interface products {
+  name: string,
+  price: number,
+  category: string,
+  color: string,
+  image: string,
+  description: string,
+  id: number,
+  _id: String,
+  quantity: undefined | number,
+  productId: undefined | number
+}
+interface cartType {
+  name: string,
+  price: number,
+  category: string,
+  color: string,
+  image: string,
+  description: string,
+  quantity: undefined | number,
+  // productId: number,
+  id: number | undefined,
+  productId: String,
+  userId: number
+}
 
-  interface priceSummary{
-    price:number,
-    discount:number,
-    tax:number,
-    delivery:number,
-    total:number
-  }
+interface priceSummary {
+  price: number,
+  discount: number,
+  tax: number,
+  delivery: number,
+  total: number
+}
 
-  export{
-    signUp,
-    login,
-    products,
-    cartType,
-    priceSummary
-  }
+export {
+  signUp,
+  login,
+  products,
+  cartType,
+  priceSummary
+}

@@ -18,6 +18,7 @@ export class HeaderComponent {
   sellerName: string = ""
   userName: string = ""
   searchResult: undefined | products[]
+  allProducts: undefined | products[]
   cartItems = 0;
 
 
@@ -38,13 +39,15 @@ export class HeaderComponent {
 
 
   ngOnInit(): void {
- 
-   this.route.events.subscribe((val: any) => {
+
+    this.route.events.subscribe((val: any) => {
       // console.log("navbar route value:", val);
       if (val.url) {
         if (localStorage.getItem('sellerLoggedIn') && val.url.includes('/')) {
           let getNameSellerName = localStorage.getItem('sellerLoggedIn')
           if (getNameSellerName) {
+            // console.log(JSON.parse(getNameSellerName));
+
             this.sellerName = JSON.parse(getNameSellerName)
           }
           this.menuType = 'seller';
@@ -84,6 +87,16 @@ export class HeaderComponent {
     // for immidiate changes showing cart items length
     this.cartService.cartData.subscribe((item) => {
       this.cartItems = item.length
+    })
+
+
+
+    // getting all products
+
+    this.productService.getProductList().subscribe((data) => {
+      if (data) {
+        this.allProducts = data
+      }
     })
 
   }
@@ -163,23 +176,22 @@ export class HeaderComponent {
 
   onSearchInput(event: Event) {
     const inputValue = (event.target as HTMLInputElement)?.value;
-    if (inputValue !== null && inputValue !== undefined) {
-      this.searchValue = inputValue;
-      this.productService.searchProducts(this.searchValue)
-        .pipe(
-          debounceTime(100),
-          distinctUntilChanged()
-        )
-        .subscribe((data: null | products[]) => {
-          if (data && data.length > 0) {
-            this.searchResult = data
+    if (!inputValue) {
+      this.searchResult = this.allProducts
 
-          } else {
-            // console.log("no data found");
-            this.searchResult = undefined
-          }
-        });
     }
+
+    let valueInLowerCase = inputValue.toLowerCase();
+    this.searchResult = this.allProducts && this.allProducts.filter(product => {
+      return (
+        product.name.toLowerCase().includes(valueInLowerCase) ||
+        product.category.toLowerCase().includes(valueInLowerCase) ||
+        product.description.toLowerCase().includes(valueInLowerCase)
+      );
+    });
+   
+
+
   }
 
   // hide result search bar when click outside
@@ -188,7 +200,7 @@ export class HeaderComponent {
   }
 
   // redirect user to details page of products when click any search item
-  redirectToDetails(id: number) {
+  redirectToDetails(id: String) {
     // alert(`You cliked ${id}`)
     this.route.navigate(['product/details/' + id])
   }

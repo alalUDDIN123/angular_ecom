@@ -33,7 +33,7 @@ export class SellerHomeComponent implements OnInit {
   }
 
   // delete function
-  deleteProductFn(id: Number) {
+  deleteProductFn(id: String) {
 
     let isConfirm = window.confirm(`Are you sure want to delete this product`)
     if (isConfirm) {
@@ -54,7 +54,7 @@ export class SellerHomeComponent implements OnInit {
 
 
   // edit function 
-  editFn(id: Number) {
+  editFn(id: String) {
     // alert(`You cliked edit icon with id : ${id}`)
     this.route.navigate([`seller-update-product/${id}`])
   }

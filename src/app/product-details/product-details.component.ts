@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import {Title} from '@angular/platform-browser'
+import { Title } from '@angular/platform-browser'
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { cartType, products } from 'src/data.type';
@@ -26,7 +26,7 @@ export class ProductDetailsComponent implements OnInit {
     private productService: ProductService,
     private route: Router,
     private cartService: CartServiceService,
-    private titleService:Title
+    private titleService: Title
   ) { }
 
   // getting product id from url and sending to product service
@@ -40,9 +40,11 @@ export class ProductDetailsComponent implements OnInit {
 
     this.activeRoute.params.subscribe(params => {
       const paramId = params['productId'];
+      // console.log("parsm", paramId);
+
       if (paramId !== null) {
-        const productId = parseInt(paramId);
-        productId && this.productService.getSingleProduct(productId).subscribe((data) => {
+
+        paramId && this.productService.getSingleProduct(paramId).subscribe((data) => {
           this.productData = data;
           this.isLoading = false;
         });
@@ -54,7 +56,9 @@ export class ProductDetailsComponent implements OnInit {
       let cartData = localStorage.getItem('localCart');
       if (paramId && cartData) {
         let items = JSON.parse(cartData);
-        items = items.filter((item: products) => paramId === item.id.toString());
+        // console.log("item of cart data", items);
+
+        items = items.filter((item: products) => paramId === item._id);
         this.isProductInCart = items.length > 0;
       }
 
@@ -74,8 +78,8 @@ export class ProductDetailsComponent implements OnInit {
           }
           this.isLoading = false;
         })
-        
-        
+
+
       }
     });
 
@@ -105,7 +109,7 @@ export class ProductDetailsComponent implements OnInit {
         let parseUser = JSON.parse(isUserLoggedIn);
         let cartData: cartType = {
           ...this.productData,
-          productId: this.productData.id,
+          productId: this.productData._id,
           userId: parseUser.id
         }
         delete cartData.id
@@ -134,7 +138,7 @@ export class ProductDetailsComponent implements OnInit {
 
   // remove from cart handle
 
-  removeFromCart(id: number) {
+  removeFromCart(id: String) {
 
     if (!localStorage.getItem('userLoggedIn')) {
       this.cartService.removeItemFromCart(id)

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http"
 import { login, signUp } from 'src/data.type';
 import { BehaviorSubject,Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+// import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -18,27 +18,27 @@ export class AuthenticationService {
   ) { }
 
   // baseUrl="http://localhost:3000/registeredUsers"
-  baseUrl="https://calm-blue-hippo-veil.cyclic.app/registeredUsers"
+  baseUrl="https://prickly-earrings-cow.cyclic.app/api/angularUser"
 
-  checkEmailExists(email: string): Observable<boolean> {
-    const url = `${this.baseUrl}?email=${email}`;
-    // Make a request to the JSON server to check if the email exists
-    return this.http.get<any[]>(url).pipe(
-      map((users: any[]) => users.length > 0)
-    );
-  }
+  // checkEmailExists(email: string): Observable<boolean> {
+  //   const url = `${this.baseUrl}?email=${email}`;
+  //   // Make a request to the JSON server to check if the email exists
+  //   return this.http.get<any[]>(url).pipe(
+  //     map((users: any[]) => users.length > 0)
+  //   );
+  // }
 
   // post request for register
   userSignup(data: signUp) {
     // console.log("user sign up getting called from service file");
-    return this.http.post(this.baseUrl, data)
+    return this.http.post(`${this.baseUrl}/register`, data)
 
   }
 
   //get request for login
 
   loginUser(data: login) {
-    return this.http.get(`${this.baseUrl}?email=${data.email}&password=${data.password}`)
+    return this.http.post(`${this.baseUrl}/login`,data)
 
   }
 
